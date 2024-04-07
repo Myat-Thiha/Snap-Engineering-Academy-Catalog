@@ -24,11 +24,34 @@
         <h2 class="title">Htoo Eain Thin</h2>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem minima eos voluptas, quam ullam quod ea fugiat maxime odit obcaecati praesentium porro. Sit a dicta doloremque at mollitia odio ipsa!</p>
     </div>
+    <div class="sorts">
+        <h3>Sort by</h3>
+        <button onclick="sortAtoZ();">A-Z</button>
+        <button onclick="sortZtoA();">Z-A</button>
+        <button onclick="sortLatestYear();">Latest Years</button>
+        <button onclick="sortOldestYear();">Oldest Year</button>
+        <button onclick="sortMostListeners();">Most Listeners</button>
+        <button onclick="sortLeastListeners();">Least Listeners</button>
+    </div>
 
-    
-        <div id="card-container">
+    <div class="filter">
+        <h3>Filter by</h3>
+        <button onclick="year_1980_1990()">year 1980-1990</button>
+        <button onclick="year_1990_2000()">year 1990-2000</button>
+        <button onclick="year_2000_2010()">year 2000-2010</button>
+        <button onclick="ls_1000_3000()">1000-3000 Listeners</button>
+        <button onclick="ls_3000_6000()">3000-6000 Listeners</button>
+        <button onclick="ls_6000_10000()">6000-10000 Listeners</button>
+    </div>
+
+    <div>
+        <h3>Reset</h3>
+        <button onclick="reset()">reset sort and filter</button>
+    </div>
+
+    <div id="card-container">
              
-        </div>
+    </div>
         <div class="card" style="display: none;">
             <div class="card-content">
                 <h2>Albums</h2>
