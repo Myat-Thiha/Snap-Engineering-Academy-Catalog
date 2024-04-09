@@ -25,7 +25,13 @@
         <h2 class="title">Htoo Eain Thin</h2>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem minima eos voluptas, quam ullam quod ea fugiat maxime odit obcaecati praesentium porro. Sit a dicta doloremque at mollitia odio ipsa!</p>
     </div>
-    <div class="sorts">
+
+<div id = "Album-container">
+    <div class="search albums">
+        <input type="text" id="searchAlbum" placeholder="Search Albums..." oninput="searchAlbum()">
+    </div>
+
+    <div class="albumSorts">
         <h3>Sort by</h3>
         <button onclick="sortAtoZ();">A-Z</button>
         <button onclick="sortZtoA();">Z-A</button>
@@ -35,14 +41,15 @@
         <button onclick="sortLeastListeners();">Least Listeners</button>
     </div>
 
-    <div class="filter">
-        <h3>Filter by</h3>
-        <button onclick="year_1980_1990()">year 1980-1990</button>
-        <button onclick="year_1990_2000()">year 1990-2000</button>
-        <button onclick="year_2000_2010()">year 2000-2010</button>
-        <button onclick="ls_1000_3000()">1000-3000 Listeners</button>
-        <button onclick="ls_3000_6000()">3000-6000 Listeners</button>
-        <button onclick="ls_6000_10000()">6000-10000 Listeners</button>
+    <div class="albumFilter">
+        <h3>Filter by year</h3>
+        <button onclick="year_1980_1990()" class = "80_90">1980-1990</button>
+        <button onclick="year_1990_2000()" class = "90_20">1990-2000</button>
+        <button onclick="year_2000_2010()" class = "00_10">2000-2010</button>
+        <h3>Filter by listeners</h3>
+        <button onclick="ls_1000_3000()">1000-3000</button>
+        <button onclick="ls_3000_6000()">3000-6000</button>
+        <button onclick="ls_6000_10000()">6000-10000</button>
     </div>
 
     <div>
@@ -50,8 +57,9 @@
         <button onclick="resetAll()">reset sort and filter</button>
     </div>
 
+
     <div id="card-container">
-             
+
     </div>
 
     <div class="card" style="display: none;">
@@ -64,8 +72,15 @@
             </ul>
         </div>
     </div>
+</div>
+
     
     <div id="song-container" style="display: none;">
+        <div class ="search song">
+            <input type="text" id="searchSong" placeholder="Search Songs...">
+            <button onclick="searchSong()">Search</button>
+            <ul id="songResults"></ul>
+        </div>
         <button onclick="back()">back</button>
         <h2 id="album-title"></h2>
         <ul id="song-list"></ul> 

@@ -28,8 +28,20 @@
 
 import titles from './titles.js';
 
+let isAlbum = false;
+let isSong = false;
+
+let y80_90 = false;
+let y90_00 = false;
+let y00_10 = false;
+let l10_30 = false;
+let l30_60 = false;
+let l60_00 = false;
+
 let getTitles = titles;
 let titles_buffer = [...getTitles];
+let temp = [...titles_buffer];
+let temp2 = [...getTitles];
 //console.log("titles_buffer");
 // Your final submission should have much more data than this, and 
 // you should use more than just an array of strings to store it all.
@@ -38,6 +50,7 @@ let titles_buffer = [...getTitles];
 
 export function sortAtoZ() {
     titles_buffer.sort((a, b) => a.Name.localeCompare(b.Name));
+    temp = titles_buffer;
     showCards();
 }
 window.sortAtoZ = sortAtoZ;
@@ -45,6 +58,7 @@ window.sortAtoZ = sortAtoZ;
 export function sortLatestYear()
 {
     titles_buffer.sort((a, b) => b.year - a.year); // Sort in descending order of year (latest to oldest)
+    temp = titles_buffer;
     showCards();
 }
 window.sortLatestYear = sortLatestYear;
@@ -52,6 +66,7 @@ window.sortLatestYear = sortLatestYear;
 function sortOldestYear()
 {
     titles_buffer.sort((a, b) => a.year - b.year);
+    temp = titles_buffer;
     showCards();
 }
 window.sortOldestYear = sortOldestYear;
@@ -59,6 +74,7 @@ window.sortOldestYear = sortOldestYear;
 export function sortZtoA()
 {
     titles_buffer.sort((a, b) => b.Name.localeCompare(a.Name));
+    temp = titles_buffer;
     showCards();
 }
 window.sortZtoA = sortZtoA;
@@ -66,6 +82,7 @@ window.sortZtoA = sortZtoA;
 export function sortMostListeners()
 {
     titles_buffer.sort((a,b) => b.listened - a.listened );
+    temp = titles_buffer;
     showCards();
 }
 window.sortMostListeners = sortMostListeners;
@@ -73,6 +90,7 @@ window.sortMostListeners = sortMostListeners;
 export function sortLeastListeners()
 {
     titles_buffer.sort((a,b) => a.listened - b.listened );
+    temp = titles_buffer;
     showCards();
 }
 window.sortLeastListeners = sortLeastListeners;
@@ -80,59 +98,175 @@ window.sortLeastListeners = sortLeastListeners;
 export function resetAll()
 {
     titles_buffer=[...getTitles];
+    temp = [...titles_buffer];
     showCards();
+    y00_10 = false;
+    y80_90 = false;
+    y90_00 = false;
+    l10_30 = false;
+    l30_60 = false;
+    l60_00 = false;
 }
 window.resetAll = resetAll;
 
+function filter_year(y1,y2,y3)
+{
+    let sortarray=[];
+    let array1 = getTitles.filter(item => item.year >= 1980 && item.year <= 1990);
+    let array2 = getTitles.filter(item => item.year >=1990 && item.year <= 2000);
+    let array3 = getTitles.filter (item => item.year >= 2000 && item.year <= 2010);
+    if(y1==false && y2==false && y3==false)
+    {
+        //resetAll();
+        return getTitles;
+    }
+    else
+    {
+        if(y1)
+        {
+            sortarray = Array.from(new Set(sortarray.concat(array1)));
+        }
+        if(y2)
+        {
+            sortarray = Array.from(new Set(sortarray.concat(array2)));
+        }
+        if(y3)
+        {
+            sortarray = Array.from(new Set(sortarray.concat(array3)));
+        }
+        return sortarray;
+    }
+}
+
+function filter_listener(l1,l2,l3)
+{
+    let sortarray=[];
+    let array1 = temp.filter (item => item.listened >= 1000 && item.listened <=3000);
+    let array2 = temp.filter (item => item.listened >= 3000 && item.listened <= 6000);
+    let array3 = temp.filter (item => item.listened >= 6000 && item.listened <= 10000);
+    if(l1==false && l2==false && l3==false)
+    {
+        console.log("here");
+        return temp2;
+    }
+    else
+    {
+        if(l1)
+        {
+            sortarray = Array.from(new Set(sortarray.concat(array1)));
+        }
+        if(l2)
+        {
+            sortarray = Array.from(new Set(sortarray.concat(array2)));
+        }
+        if(l3)
+        {
+            sortarray = Array.from(new Set(sortarray.concat(array3)));
+        }
+        return sortarray;
+    }
+}
+
+function displayFilteredAlbums(filteredAlbums) {
+    const cardContainer = document.getElementById("card-container");
+    cardContainer.innerHTML = "";
+
+    const templateCard = document.querySelector(".card");
+
+    filteredAlbums.forEach(album => {
+        const nextCard = templateCard.cloneNode(true);
+        editCardContent(nextCard, album, album.image);
+        cardContainer.appendChild(nextCard);
+    });
+}
+
 export function year_1980_1990()
 {
-    titles_buffer = getTitles.filter(item => item.year >= 1980 && item.year <= 1990);
+    y80_90 = !y80_90;
+    titles_buffer = filter_year(y80_90,y90_00,y00_10);
+    temp = [...titles_buffer];
+    temp2 = [...titles_buffer];
     showCards();
 }
 window.year_1980_1990 = year_1980_1990;
 
 export function year_1990_2000()
 {
-    titles_buffer = getTitles.filter(item => item.year >=1990 && item.year <= 2000);
+    y90_00 = !y90_00;
+    titles_buffer = filter_year(y80_90,y90_00,y00_10);
+    temp = [...titles_buffer];
+    temp2 = [...titles_buffer];
     showCards();
-    console.log(titles_buffer);
 }
 window.year_1990_2000 = year_1990_2000;
 
 export function year_2000_2010()
 {
-    titles_buffer = getTitles.filter (item => item.year >= 2000 && item.year <= 2010);
+    y00_10 = !y00_10;
+    titles_buffer = filter_year(y80_90,y90_00,y00_10);
+    temp = [...titles_buffer];
+    temp2 = [...titles_buffer];
     showCards();
 }
 window.year_2000_2010 = year_2000_2010;
 
 export function ls_1000_3000()
 {
-    titles_buffer = getTitles.filter (item => item.listened >= 1000 && item.listened <=3000);
+    l10_30 = !l10_30;
+    titles_buffer = filter_listener(l10_30,l30_60,l60_00);
+    //temp = [...titles_buffer];
     showCards();
 }
 window.ls_1000_3000 = ls_1000_3000;
 
 export function ls_3000_6000()
 {
-    titles_buffer = getTitles.filter (item => item.listened >= 3000 && item.listened <= 6000);
+    l30_60 = !l30_60;
+    titles_buffer = filter_listener(l10_30,l30_60,l60_00);
+    //temp = [...titles_buffer];
     showCards();
 }
 window.ls_3000_6000 = ls_3000_6000;
 
 export function ls_6000_10000()
 {
-    titles_buffer = getTitles.filter (item => item.listened >= 6000 && item.listened <= 10000);
+    l60_00 = !l60_00;
+    titles_buffer = filter_listener(l10_30,l30_60,l60_00);
+    //temp = [...titles_buffer];
     showCards();
 }
 window.ls_6000_10000 = ls_6000_10000;
 
 export function back()
 {
-    document.getElementById("card-container").style.display = "block";
+    document.getElementById("Album-container").style.display = "block";
     document.getElementById("song-container").style.display = "none";
+    isAlbum = true;
+    isSong = false;
+    console.log("isAlbum: "+ isAlbum +" isSong: "+isSong);
 }
 window.back = back;
+
+export function searchAlbum() {
+    const searchInput = document.getElementById("searchAlbum").value.trim().toLowerCase();
+    
+    if (searchInput === "") {
+        // If the search input is empty, reset the display to show all albums
+        displayFilteredAlbums(titles_buffer);
+        temp = [...titles_buffer];
+        return;
+    }
+
+    const filteredAlbums = titles_buffer.filter(album => {
+        // Check if the album name contains the search input
+        return album.Name.toLowerCase().startsWith(searchInput);
+    });
+
+    displayFilteredAlbums(filteredAlbums);
+    temp = [...titles_buffer];
+}
+window.searchAlbum = searchAlbum;
+
 
 function showCards() {
     const cardContainer = document.getElementById("card-container");
@@ -157,7 +291,7 @@ function showCards() {
 
 function navigateToSongPage(album) {
     // Hide the card container and show the song container
-    document.getElementById("card-container").style.display = "none";
+    document.getElementById("Album-container").style.display = "none";
     document.getElementById("song-container").style.display = "block";
     // Set the album title on the song page
     document.getElementById("album-title").textContent = album.songs.Name;
@@ -171,7 +305,9 @@ function navigateToSongPage(album) {
         const listItem = document.createElement("li");
         listItem.textContent = `${song.Name} - ${song.Duration}`;
         songList.appendChild(listItem);
-        console.log("clicked");
+        isAlbum = false;
+        isSong = true;
+        console.log("isAlbum: "+ isAlbum +" isSong: "+isSong);
     }
 }
 
