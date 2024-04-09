@@ -117,8 +117,14 @@ function filter_year(y1,y2,y3)
     let array3 = getTitles.filter (item => item.year >= 2000 && item.year <= 2010);
     if(y1==false && y2==false && y3==false)
     {
-        //resetAll();
-        return getTitles;
+        if(l10_30==false && l30_60==false && l60_00==false)
+        {
+            return getTitles;
+        }
+        else
+        {
+            return filter_listener(l10_30,l30_60,l60_00);
+        }
     }
     else
     {
@@ -180,58 +186,88 @@ function displayFilteredAlbums(filteredAlbums) {
     });
 }
 
-export function year_1980_1990()
-{
+export function year_1980_1990() {
     y80_90 = !y80_90;
-    titles_buffer = filter_year(y80_90,y90_00,y00_10);
+    const button = document.getElementById("btn-1980-1990");
+    if (y80_90) {
+        button.style.backgroundColor = "green";
+    } else {
+        button.style.backgroundColor = "gray";
+    }
+    titles_buffer = filter_year(y80_90, y90_00, y00_10);
     temp = [...titles_buffer];
     temp2 = [...titles_buffer];
     showCards();
 }
 window.year_1980_1990 = year_1980_1990;
 
-export function year_1990_2000()
-{
+export function year_1990_2000() {
     y90_00 = !y90_00;
-    titles_buffer = filter_year(y80_90,y90_00,y00_10);
+    const button = document.getElementById("btn-1990-2000");
+    if (y90_00) {
+        button.style.backgroundColor = "green";
+    } else {
+        button.style.backgroundColor = "gray";
+    }
+    titles_buffer = filter_year(y80_90, y90_00, y00_10);
     temp = [...titles_buffer];
     temp2 = [...titles_buffer];
     showCards();
 }
 window.year_1990_2000 = year_1990_2000;
 
-export function year_2000_2010()
-{
+export function year_2000_2010() {
     y00_10 = !y00_10;
-    titles_buffer = filter_year(y80_90,y90_00,y00_10);
+    const button = document.getElementById("btn-2000-2010");
+    if (y00_10) {
+        button.style.backgroundColor = "green";
+    } else {
+        button.style.backgroundColor = "gray";
+    }
+    titles_buffer = filter_year(y80_90, y90_00, y00_10);
     temp = [...titles_buffer];
     temp2 = [...titles_buffer];
     showCards();
 }
 window.year_2000_2010 = year_2000_2010;
 
-export function ls_1000_3000()
-{
+export function ls_1000_3000() {
     l10_30 = !l10_30;
-    titles_buffer = filter_listener(l10_30,l30_60,l60_00);
+    const button = document.getElementById("btn-1000-3000");
+    if (l10_30) {
+        button.style.backgroundColor = "green";
+    } else {
+        button.style.backgroundColor = "gray";
+    }
+    titles_buffer = filter_listener(l10_30, l30_60, l60_00);
     //temp = [...titles_buffer];
     showCards();
 }
 window.ls_1000_3000 = ls_1000_3000;
 
-export function ls_3000_6000()
-{
+export function ls_3000_6000() {
     l30_60 = !l30_60;
-    titles_buffer = filter_listener(l10_30,l30_60,l60_00);
+    const button = document.getElementById("btn-3000-6000");
+    if (l30_60) {
+        button.style.backgroundColor = "green";
+    } else {
+        button.style.backgroundColor = "gray";
+    }
+    titles_buffer = filter_listener(l10_30, l30_60, l60_00);
     //temp = [...titles_buffer];
     showCards();
 }
 window.ls_3000_6000 = ls_3000_6000;
 
-export function ls_6000_10000()
-{
+export function ls_6000_10000() {
     l60_00 = !l60_00;
-    titles_buffer = filter_listener(l10_30,l30_60,l60_00);
+    const button = document.getElementById("btn-6000-10000");
+    if (l60_00) {
+        button.style.backgroundColor = "green";
+    } else {
+        button.style.backgroundColor = "gray";
+    }
+    titles_buffer = filter_listener(l10_30, l30_60, l60_00);
     //temp = [...titles_buffer];
     showCards();
 }
@@ -252,7 +288,8 @@ export function searchAlbum() {
     
     if (searchInput === "") {
         // If the search input is empty, reset the display to show all albums
-        displayFilteredAlbums(titles_buffer);
+        titles_buffer = [...temp2];
+        showCards();
         temp = [...titles_buffer];
         return;
     }
@@ -262,7 +299,9 @@ export function searchAlbum() {
         return album.Name.toLowerCase().startsWith(searchInput);
     });
 
-    displayFilteredAlbums(filteredAlbums);
+    titles_buffer = filteredAlbums;
+    showCards();
+    //displayFilteredAlbums(filteredAlbums);
     temp = [...titles_buffer];
 }
 window.searchAlbum = searchAlbum;
@@ -294,7 +333,7 @@ function navigateToSongPage(album) {
     document.getElementById("Album-container").style.display = "none";
     document.getElementById("song-container").style.display = "block";
     // Set the album title on the song page
-    document.getElementById("album-title").textContent = album.songs.Name;
+    document.getElementById("album-title").textContent = album.Name;
 
     // Get the song list container
     const songList = document.getElementById("song-list");
@@ -310,6 +349,23 @@ function navigateToSongPage(album) {
         console.log("isAlbum: "+ isAlbum +" isSong: "+isSong);
     }
 }
+
+export function searchSongs() {
+    const searchInput = document.getElementById("searchSongInput").value.trim().toLowerCase();
+    const albumTitle = document.getElementById("album-title").textContent.toLowerCase(); // Assuming album title is stored in an element with id "album-title"
+    const songList = document.getElementById("song-list");
+    const songs = songList.querySelectorAll("li");
+
+    for (let song of songs) {
+        const songName = song.textContent.toLowerCase();
+        if (songName.startsWith(searchInput) && albumTitle.includes(searchInput)) {
+            song.style.display = "block"; // Show the song if it matches the search
+        } else {
+            song.style.display = "none"; // Hide the song if it doesn't match the search
+        }
+    }
+}
+window.searchSongs = searchSongs;
 
 function editCardContent(card, newTitle, newImageURL) {
     card.style.display = "block";
