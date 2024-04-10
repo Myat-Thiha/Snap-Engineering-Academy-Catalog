@@ -112,14 +112,14 @@ window.resetAll = resetAll;
 function filter_year(y1,y2,y3)
 {
     let sortarray=[];
-    let array1 = getTitles.filter(item => item.year >= 1980 && item.year <= 1990);
-    let array2 = getTitles.filter(item => item.year >=1990 && item.year <= 2000);
-    let array3 = getTitles.filter (item => item.year >= 2000 && item.year <= 2010);
+    let array1 = temp.filter(item => item.year >= 1980 && item.year <= 1990);
+    let array2 = temp.filter(item => item.year >=1990 && item.year <= 2000);
+    let array3 = temp.filter (item => item.year >= 2000 && item.year <= 2010);
     if(y1==false && y2==false && y3==false)
     {
         if(l10_30==false && l30_60==false && l60_00==false)
         {
-            return getTitles;
+            return temp2;
         }
         else
         {
@@ -183,6 +183,9 @@ function displayFilteredAlbums(filteredAlbums) {
         const nextCard = templateCard.cloneNode(true);
         editCardContent(nextCard, album, album.image);
         cardContainer.appendChild(nextCard);
+        nextCard.addEventListener("click", function() {
+            navigateToSongPage(album);
+        });
     });
 }
 
@@ -195,8 +198,8 @@ export function year_1980_1990() {
         button.style.backgroundColor = "gray";
     }
     titles_buffer = filter_year(y80_90, y90_00, y00_10);
-    temp = [...titles_buffer];
-    temp2 = [...titles_buffer];
+    //temp = [...titles_buffer];
+    //temp2 = [...titles_buffer];
     showCards();
 }
 window.year_1980_1990 = year_1980_1990;
@@ -210,8 +213,8 @@ export function year_1990_2000() {
         button.style.backgroundColor = "gray";
     }
     titles_buffer = filter_year(y80_90, y90_00, y00_10);
-    temp = [...titles_buffer];
-    temp2 = [...titles_buffer];
+    //temp = [...titles_buffer];
+    //temp2 = [...titles_buffer];
     showCards();
 }
 window.year_1990_2000 = year_1990_2000;
@@ -225,8 +228,8 @@ export function year_2000_2010() {
         button.style.backgroundColor = "gray";
     }
     titles_buffer = filter_year(y80_90, y90_00, y00_10);
-    temp = [...titles_buffer];
-    temp2 = [...titles_buffer];
+    //temp = [...titles_buffer];
+    //temp2 = [...titles_buffer];
     showCards();
 }
 window.year_2000_2010 = year_2000_2010;
@@ -283,6 +286,28 @@ export function back()
 }
 window.back = back;
 
+// export function searchAlbum() {
+//     const searchInput = document.getElementById("searchAlbum").value.trim().toLowerCase();
+    
+//     if (searchInput === "") {
+//         // If the search input is empty, reset the display to show all albums
+//         titles_buffer = [...temp2];
+//         showCards();
+//         temp = [...titles_buffer];
+//         return;
+//     }
+
+//     const filteredAlbums = titles_buffer.filter(album => {
+//         // Check if the album name contains the search input
+//         return album.Name.toLowerCase().startsWith(searchInput);
+//     });
+
+//     //titles_buffer = filteredAlbums;
+//     //showCards();
+//     displayFilteredAlbums(filteredAlbums);
+//     console.log("I am here");
+//     temp = [...filteredAlbums];
+// }
 export function searchAlbum() {
     const searchInput = document.getElementById("searchAlbum").value.trim().toLowerCase();
     
@@ -299,10 +324,25 @@ export function searchAlbum() {
         return album.Name.toLowerCase().startsWith(searchInput);
     });
 
-    titles_buffer = filteredAlbums;
-    showCards();
-    //displayFilteredAlbums(filteredAlbums);
-    temp = [...titles_buffer];
+    displayFilteredAlbums(filteredAlbums);
+    console.log("Search complete");
+
+    // Add a button to indicate when the search is complete
+    const searchButton = document.createElement("button");
+    searchButton.textContent = "Search";
+    searchButton.addEventListener("click", function() {
+        // Reset the display to show all albums again
+        titles_buffer = [...filteredAlbums];
+        showCards();
+        temp = [...titles_buffer];
+        temp2 = [...titles_buffer];
+        console.log("Here");
+    });
+
+    //Append the search complete button to the DOM
+    const searchContainer = document.getElementById("searchContainer");
+    searchContainer.innerHTML = "";
+    searchContainer.appendChild(searchButton);
 }
 window.searchAlbum = searchAlbum;
 
@@ -367,6 +407,52 @@ export function searchSongs() {
 }
 window.searchSongs = searchSongs;
 
+export function songSortAToZ() {
+    const songList = document.getElementById("song-list");
+    const songs = Array.from(songList.querySelectorAll("li"));
+
+    songs.sort((a, b) => a.textContent.localeCompare(b.textContent));
+    
+    songList.innerHTML = ""; // Clear previous song list
+
+    songs.forEach(song => {
+        songList.appendChild(song); // Add sorted songs to the song list
+    });
+}
+window.songSortAToZ = songSortAToZ;
+
+export function songSortZToA() {
+    const songList = document.getElementById("song-list");
+    const songs = Array.from(songList.querySelectorAll("li"));
+
+    songs.sort((a, b) => b.textContent.localeCompare(a.textContent));
+    
+    songList.innerHTML = ""; // Clear previous song list
+
+    songs.forEach(song => {
+        songList.appendChild(song); // Add sorted songs to the song list
+    });
+}
+window.songSortZToA = songSortZToA;
+
+export function songSortByDuration() {
+    const songList = document.getElementById("song-list");
+    const songs = Array.from(songList.querySelectorAll("li"));
+
+    songs.sort((a, b) =>{
+        const durationA = parseInt(a.textContent.split("-")[1].trim());
+        const durationB = parseInt(b.textContent.split("-")[1].trim());
+        return durationB - durationA;
+    });
+    
+    songList.innerHTML = ""; // Clear previous song list
+
+    songs.forEach(song => {
+        songList.appendChild(song); // Add sorted songs to the song list
+    });
+}
+window.songSortByDuration = songSortByDuration;
+
 function editCardContent(card, newTitle, newImageURL) {
     card.style.display = "block";
 
@@ -391,12 +477,13 @@ function editCardContent(card, newTitle, newImageURL) {
 
 document.addEventListener("DOMContentLoaded", showCards);
 
-function quoteAlert() {
-    console.log("Button Clicked!")
-    alert("I guess I can kiss heaven goodbye, because it got to be a sin to look this good!");
-}
+// function quoteAlert() {
+//     console.log("Button Clicked!")
+//     alert("I guess I can kiss heaven goodbye, because it got to be a sin to look this good!");
+// }
 
-function removeLastCard() {
-    titles.pop(); // Remove last item in titles array
+export function removeLastCard() {
+    titles_buffer.pop(); // Remove last item in titles array
     showCards(); // Call showCards again to refresh
 }
+window.removeLastCard = removeLastCard;

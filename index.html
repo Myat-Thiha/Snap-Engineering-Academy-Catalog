@@ -13,22 +13,32 @@
     <header>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Menu</a></li>
-                    <li><a href="#">Albums</a></li>
-                    <li><a href="#">Biography</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="https://www.snapacademies.com/">About</a></li>
+                    <li><a href="#Album-container">Discography</a></li>
+                    <li><a href="biography.html">Biography</a></li>
                 </ul>
             </nav>
     </header>
     
-    <div class="title grid">
+    <div class="title grid" id ="home">
         <h2 class="title">Htoo Eain Thin</h2>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem minima eos voluptas, quam ullam quod ea fugiat maxime odit obcaecati praesentium porro. Sit a dicta doloremque at mollitia odio ipsa!</p>
+        <p>Htoo Eain Thin (Burmese: ထူးအိမ်သင်; pronounced [tʰú ʔèiɰ̃ θɪ̀ɰ̃]; born Kyaw Myint Lwin (ကျော်မြင့်လွင်, [tɕɔ̀ mjɪ̰ɰ̃ lwɪ̀ɰ̃]); 1 July 1963 – 14 August 2004) was one of the most popular and respected Burmese singer-songwriters. He brought a new style of pop rock music to the Burmese music scene in mid-1980s,[1] and was popular till his death in 2004. He released 14 solo albums in his 18-year career.[2] His songs remain Burmese standards and his premature death is still mourned by millions of fans.</p>
+        <p>Credit:Wikipedia, https://en.wikipedia.org/wiki/Htoo_Ein_Thin</p>
+        <img src = "https://i.scdn.co/image/ab67706c0000da84601b2a996e106c4fff7f1795" alt ="htoo eain thin photo"></img>
     </div>
 
 <div id = "Album-container">
+    <div class="disco">
+        <h2>Discography</h2>
+    </div>
     <div class="search albums">
         <input type="text" id="searchAlbum" placeholder="Search Albums..." oninput="searchAlbum()">
+        <div id="searchContainer"></div>
+    </div>
+
+    <div>
+        <button onclick="resetAll()">reset</button>
     </div>
 
     <div class="albumSorts">
@@ -50,11 +60,6 @@
         <button id="btn-1000-3000" onclick="ls_1000_3000()">1000-3000</button>
         <button id="btn-3000-6000" onclick="ls_3000_6000()">3000-6000</button>
         <button id="btn-6000-10000" onclick="ls_6000_10000()">6000-10000</button>        
-    </div>
-
-    <div>
-        <h3>Reset</h3>
-        <button onclick="resetAll()">reset sort and filter</button>
     </div>
 
 
@@ -81,17 +86,17 @@
             <ul id="songResults"></ul>
         </div>
         <button onclick="back()">back</button>
+        <button onclick="songSortAToZ()">A to Z</button>
+        <button onclick="songSortZToA()">Z to A</button>
+        <button onclick="songSortByDuration()">Duration</button>
         <h2 id="album-title"></h2>
         <ul id="song-list"></ul> 
     </div>
  
     <div class="footer">
-        <button onclick="quoteAlert();">
-            Get A Quote!
-        </button>
-        <button onclick="removeLastCard();">
-            Remove A Card!
-        </button>
+        <div id="footerbtn">
+            <h4>2024 Snap Academy | Myat Thiha</h4>
+        </div>
     </div>
 </body>
 

@@ -1,9 +1,50 @@
-html,
 body {
     margin: 0;
     padding: 0;
+    background-image: url(https://t4.ftcdn.net/jpg/01/16/88/37/360_F_116883786_wuckft1sNw1ouQfJ6FuquZnxea3qBlxy.jpg); 
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    color: #333;
 }
 
+header {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.title {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
 
 #card-container {
     display: flex;
@@ -23,13 +64,13 @@ body {
 
 .card-content {
     padding: 20px;
-    font-family: "Verdana";
-    color: #777;
+    font-family: "Arial";
+    color: rgba(234, 230, 230, 0.885);
 }
 
 .card-content h2 {
     margin-top: 0;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .card img {
@@ -48,6 +89,15 @@ li {
     margin-bottom: 5px;
 }
 
+    
+#song-container li {
+    color: white;
+}
+
+#song-container h2 {
+    color: rgb(240, 236, 236); /* Change the color to red */
+}
+
 /* Media queries for responsiveness */
 @media (max-width: 992px) {
     .card {
@@ -61,52 +111,102 @@ li {
     }
 }
 
+button {
+    background-color: gray;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+button:focus {
+    outline: none;
+}
+
+.albumSorts h3,
+.albumFilter h3 {
+    color: rgb(244, 241, 241); /* Change to your desired color */
+}
+
+#searchSongInput {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 200px;
+    box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+#searchSongInput:focus {
+    outline: none;
+    border-color: #666; /* Change border color on focus */
+}
+
+#searchAlbum {
+    padding: 10px;
+    width: 200px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px; /* Set border-radius to 0 for a rectangular shape */
+    font-size: 16px;
+}
+
+#searchAlbum:focus {
+    outline: none;
+    border-color: #666;
+}
+
 .footer {
     display: flex;
     justify-content: center;
-    background-color: rgba(0, 0, 0, .3);
-    padding: 10px;
+    background-color: rgba(36, 35, 35, 0.8);
+    padding: 20px 0;
 }
 
-button {
+.footer button {
+    margin: 0 10px;
+}
+
+.biography-content {
+    max-width: 800px; 
+    margin: 50px auto 50px; 
+    padding: 20px; 
+    background-color: #f9f9f9; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
     text-align: center;
-    background-color: #666;
-    border: none;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 40px;
-    border-radius: 10px;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-    margin: 5px;
 }
 
-nav {
-    display:grid;
-    grid-template-columns: 1 fr 1fr;
-    background-color: rgba(0, 0, 0, 0.852);
-    padding-bottom: 10px;
+.biography-content h1 {
+    font-size: 36px;
+    color: #333; 
+    margin-bottom: 20px; 
 }
 
-nav ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-    padding: 0;
+.biography-content p {
+    font-size: 16px; 
+    line-height: 1.6; 
+    color: #555; 
+    margin-bottom: 10px; 
 }
 
-nav ul li {
-    margin-left: auto;
-    margin-right: auto;
+.footer h4
+{
+    color: rgb(198, 194, 194);
 }
 
-nav ul li a {
-    color: rgb(169, 165, 165);
-    text-decoration: none;
-}
-
-nav ul li a:hover {
-    color: rgb(225, 219, 219);
+.disco h2
+{
+    font-family: Helvetica;
+    font-size: 30px;
+    text-align: center;
+    color: rgb(227, 219, 219);
 }
