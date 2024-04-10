@@ -23,9 +23,6 @@
  * 
  */
 
-
-// This is an array of strings (TV show titles)
-
 import titles from './titles.js';
 
 let isAlbum = false;
@@ -286,28 +283,6 @@ export function back()
 }
 window.back = back;
 
-// export function searchAlbum() {
-//     const searchInput = document.getElementById("searchAlbum").value.trim().toLowerCase();
-    
-//     if (searchInput === "") {
-//         // If the search input is empty, reset the display to show all albums
-//         titles_buffer = [...temp2];
-//         showCards();
-//         temp = [...titles_buffer];
-//         return;
-//     }
-
-//     const filteredAlbums = titles_buffer.filter(album => {
-//         // Check if the album name contains the search input
-//         return album.Name.toLowerCase().startsWith(searchInput);
-//     });
-
-//     //titles_buffer = filteredAlbums;
-//     //showCards();
-//     displayFilteredAlbums(filteredAlbums);
-//     console.log("I am here");
-//     temp = [...filteredAlbums];
-// }
 export function searchAlbum() {
     const searchInput = document.getElementById("searchAlbum").value.trim().toLowerCase();
     
